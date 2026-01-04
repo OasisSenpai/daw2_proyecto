@@ -1,0 +1,102 @@
+* {
+    font-family: Consolas;
+}
+
+body {
+    height: 96vh;
+    width: 99vw;
+    margin: 10px;
+    background-color: #5080ff;
+}
+
+.parent {
+    height: 100%;
+    width: 100%;
+    /* Disposición */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 8px;
+}
+    
+.div1 {
+    /* Disposición */
+    grid-row: span 2 / span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.div2 {
+    font-size: 19px;
+    /* Disposición */
+    grid-column: span 4 / span 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.div3 {
+    font-size: 15px;
+    color: white;
+    background-color: #7aa8eb;
+    border-radius: 20px;
+    padding: 0 10px;
+    /* Disposición */
+    grid-row: span 4 / span 4;
+    grid-column-start: 1;
+    grid-row-start: 3;
+}
+
+.div4 {
+	/* height: 40px; */
+	background-color: rgb(255, 255, 255);
+    border-radius: 20px; /* Ajusta el valor para redondear más o menos los bordes */
+    border: 1px solid #ccc; /* Un borde sutil para definir la tabla */
+    overflow-y: scroll;
+    border: none;
+	/* padding: 5px; */
+    /* Disposición */
+    grid-column: span 4 / span 4;
+    grid-row: span 5 / span 5;
+    grid-column-start: 2;
+    grid-row-start: 2;
+}
+
+.div2 > #buscador {
+	background-color: white;
+	border-radius: 20px;
+	font-size: 15px;
+	height: 40px;
+    width: 300px;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+.div3 > div {
+    /* height: 100%; */
+    /* margin: 0 20%; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: flex-start;
+    row-gap: 30px;
+}
+
+.div3 > div > button {
+    color: white;
+    border: 2px solid #8c6aff;
+	background-color: #8c6aff;
+	border-radius: 20px;
+	height: 40px;
+}
+
+.div3 > div > button:hover {
+	background-color: transparent;
+	border: 2px solid #8c6aff;
+}
+
+/* .div4 > table {
+    border-radius: 20px;
+} */

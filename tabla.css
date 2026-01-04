@@ -1,0 +1,55 @@
+/*
+  NOTE: This CSS has been translated from Qt-specific stylesheet to standard CSS.
+  Some properties like border-radius on table rows and cells might behave differently in a web browser.
+*/
+
+.div4 > table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 20px;
+    overflow: hidden; /* Clips content to the rounded corners */
+    width: 100%;
+}
+
+.div4 > table th, .div4 > table td {
+    padding: 5px;
+    border: 1px solid #6B8E23; /* Added a border to mimic cell separation */
+}
+
+.div4 > table tr:nth-child(odd) {
+    background-color: #8FBC8F; /* Verde medio (MediumSeaGreen) para filas impares */
+}
+
+.div4 > table tr:nth-child(even) {
+    background-color: #98FB98; /* Verde claro (PaleGreen) para filas pares */
+}
+
+.div4 > table thead th {
+    background-color: #6B8E23; /* Verde oscuro (OliveDrab) para la cabecera */
+    color: white;
+    padding: 5px;
+    border: none;
+}
+
+/* Applying corner radius to the header cells */
+.div4 > table thead th:first-child {
+    border-top-left-radius: 20px;
+}
+
+.div4 > table thead th:last-child {
+    border-top-right-radius: 20px;
+}
+
+/* Applying corner radius to the last row cells */
+.div4 > table tr:last-child td:first-child {
+    border-bottom-left-radius: 20px;
+}
+
+.div4 > table tr:last-child td:last-child {
+    border-bottom-right-radius: 20px;
+}
+ontal:last {
+    border-top-right-radius: 20px;
+}ontal:last {
+    border-top-right-radius: 20px;
+}
