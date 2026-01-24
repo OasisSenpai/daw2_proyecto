@@ -1,7 +1,7 @@
 <?php
 $conexion = mysqli_connect(
     'mariadb',
-    'user',
-    'userpass',
+    'root',
+    'root',
     'daw_proyecto'
 );

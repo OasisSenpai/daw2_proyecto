@@ -19,7 +19,7 @@ function buscarTablaAntiguo(value) {
 
 
 function buscarTabla(value) {
-    let tabla = document.getElementById('tabla');
+    let tabla = document.getElementById('tablaDatos');
     let filas = tabla.getElementsByTagName('tr');
 
     for (let i = 1; i < filas.length; i++) { // Empezar desde 1 para saltar la fila de encabezado

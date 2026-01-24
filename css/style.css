@@ -3,9 +3,9 @@
 }
 
 body {
-    height: 96vh;
-    width: 99vw;
-    margin: 10px;
+    height: 93vh;
+    width: 98vw;
+    margin: 10px auto;
     background-color: #5080ff;
 }
 
@@ -25,6 +25,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#logo {
+    height: 90%;
 }
 
 .div2 {
