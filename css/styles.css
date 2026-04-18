@@ -1,0 +1,143 @@
+@charset "UTF-8";
+* {
+  font-family: Consolas;
+}
+
+body {
+  height: 93vh;
+  width: 98vw;
+  margin: 10px auto;
+  background-color: #5080ff;
+}
+
+.parent {
+  height: 100%;
+  width: 100%;
+  /* Disposición */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 8px;
+}
+.parent .div1 {
+  /* Disposición */
+  grid-row: span 2/span 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.parent .div1 #logo {
+  height: 90%;
+}
+.parent .div2 {
+  font-size: 19px;
+  /* Disposición */
+  grid-column: span 4/span 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.parent .div2 > #buscador {
+  background-color: white;
+  border-radius: 20px;
+  font-size: 15px;
+  height: 40px;
+  width: 300px;
+  padding: 0 10px;
+  font-size: 16px;
+}
+.parent .div3 {
+  font-size: 15px;
+  color: white;
+  background-color: #7aa8eb;
+  border-radius: 20px;
+  padding: 0 10px;
+  /* Disposición */
+  grid-row: span 4/span 4;
+  grid-column-start: 1;
+  grid-row-start: 3;
+}
+.parent .div3 > div {
+  /* height: 100%; */
+  /* margin: 0 20%; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: flex-start;
+  row-gap: 30px;
+}
+.parent .div3 > div > button {
+  color: white;
+  border: 2px solid #8c6aff;
+  background-color: #8c6aff;
+  border-radius: 20px;
+  height: 40px;
+}
+.parent .div3 > div > button:hover {
+  background-color: transparent;
+  border: 2px solid #8c6aff;
+}
+.parent .div4 {
+  /* height: 40px; */
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px; /* Ajusta el valor para redondear más o menos los bordes */
+  border: 1px solid #ccc; /* Un borde sutil para definir la tabla */
+  overflow-y: scroll;
+  border: none;
+  /* padding: 5px; */
+  /* Disposición */
+  grid-column: span 4/span 4;
+  grid-row: span 5/span 5;
+  grid-column-start: 2;
+  grid-row-start: 2;
+}
+
+.parent .div4 #tablaDatos {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 20px;
+  overflow: hidden; /* Clips content to the rounded corners */
+  width: 100%;
+}
+.parent .div4 #tablaDatos th, .parent .div4 #tablaDatos td {
+  padding: 5px;
+  border: 1px solid #6B8E23; /* Added a border to mimic cell separation */
+}
+.parent .div4 #tablaDatos tr:nth-child(odd) {
+  background-color: #8FBC8F; /* Verde medio (MediumSeaGreen) para filas impares */
+}
+.parent .div4 #tablaDatos tr:nth-child(even) {
+  background-color: #98FB98; /* Verde claro (PaleGreen) para filas pares */
+}
+.parent .div4 #tablaDatos thead th {
+  background-color: #6B8E23; /* Verde oscuro (OliveDrab) para la cabecera */
+  color: white;
+  padding: 5px;
+  border: none;
+}
+.parent .div4 #tablaDatos {
+  /* Applying corner radius to the header cells */
+}
+.parent .div4 #tablaDatos thead th:first-child {
+  border-top-left-radius: 20px;
+}
+.parent .div4 #tablaDatos thead th:last-child {
+  border-top-right-radius: 20px;
+}
+.parent .div4 #tablaDatos {
+  /* Applying corner radius to the last row cells */
+}
+.parent .div4 #tablaDatos tr:last-child td:first-child {
+  border-bottom-left-radius: 20px;
+}
+.parent .div4 #tablaDatos tr:last-child td:last-child {
+  border-bottom-right-radius: 20px;
+}
+.parent .div4 #tablaDatos ontal:last {
+  border-top-right-radius: 20px;
+}
+.parent .div4 #tablaDatos ontal:last {
+  border-top-right-radius: 20px;
+}
+
+/*# sourceMappingURL=styles.css.map */

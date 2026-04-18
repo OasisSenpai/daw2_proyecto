@@ -1,0 +1,12 @@
+@use "../utilities/variables";
+
+* {
+    font-family: Consolas;
+}
+
+body {
+    height: 93vh;
+    width: 98vw;
+    margin: 10px auto;
+    background-color: variables.$bg-color;
+}

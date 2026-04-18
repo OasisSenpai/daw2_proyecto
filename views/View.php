@@ -23,9 +23,10 @@ class View {
         <link rel='shortcut icon' href='img/logo.png' type='image/x-icon' />
         <!-- Estilos -->
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css' />
-        <link rel='stylesheet' href='css/style.css' />
+        <!-- <link rel='stylesheet' href='css/style.css' />
         <link rel='stylesheet' href='css/tabla.css' />
-        <link rel='stylesheet' href='css/temp.css' />
+        <link rel='stylesheet' href='css/temp.css' /> -->
+        <link rel='stylesheet' href='css/styles.css' />
         <!-- JavaScript -->
         <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js'></script>
         <script src='js/buscador.js'></script>
@@ -34,9 +35,9 @@ class View {
     <body>
         <header>
             <nav class='mb-3 d-flex justify-content-start gap-3'>
-                <form action='' method='get' id='formOptions'>
+                <form action='' method='get' id='formOptions' target='_blank'>
                     <select name='opciones' id='opciones' class='form-select form-select-sm' onchange='prepararEnvioGeneradorCSV()' style='width: min-content;'>
-                        <option value='' disabled selected hidden>Opciones</option>
+                        <option value='' id='opcionPredeterminada' disabled selected hidden>Opciones</option>
                         <option value='generateCSV'>Exportar tabla (.csv)</option>
                     </select>
                 </form>

@@ -8,7 +8,6 @@ if (isset($_GET['opciones']) && !is_null($_GET['opciones'])) {
         $table = $_GET['tabla'] ?? 'cursos';
         echo $controller->generateCSV($table);
     }
-}
-else {
+} else {
     echo $controller->main();
 }
