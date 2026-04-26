@@ -1,6 +1,7 @@
 <?php
 
 include_once "views/View.php";
+require_once 'models/Model.php';
 
 class Controller {
     public function main() {
@@ -37,5 +38,9 @@ class Controller {
 
         fclose($fichero);
         exit();
+    }
+
+    public function saveTable(string $table, array $datos): array {
+        return Model::guardarTabla($table, $datos);
     }
 }

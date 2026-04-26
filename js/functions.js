@@ -38,5 +38,31 @@ function prepararEnvioGeneradorCSV() {
     input.name = "filtro";
     input.value = filtro;
     formulario.appendChild(input);
+    document.getElementById("opcionPredeterminada").selected = true;  //FIXME
     formulario.submit();
+}
+
+
+async function guardarTabla() {
+    const tabla = document.getElementById("tablaDatos");
+    const datos = [];
+    tabla.querySelectorAll("tr").forEach(fila => {
+        const registro = [];
+        fila.querySelectorAll("td").forEach(celda => {
+            registro.push(celda.innerHTML);
+        });
+        datos.push(registro);
+    });
+
+    const response = await fetch("index.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            tabla: document.getElementById("tableName").innerText,
+            datos: datos
+        })
+    });
+
+    const resultado = await response.json();
+    alert(resultado.mensaje);
 }

@@ -81,7 +81,7 @@ class View {
                 <div>
                     <button onclick='annadirFila()'>Añadir fila</button>
                     <button>Eliminar fila</button>
-                    <button>Guardar tabla (BBDD)</button>
+                    <button onclick='guardarTabla()'>Guardar tabla (BBDD)</button>
                 </div>
             </div>";
     }
