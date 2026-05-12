@@ -36,9 +36,9 @@ class View {
         <header>
             <nav class='mb-3 d-flex justify-content-start gap-3'>
                 <form action='' method='get' id='formOptions' target='_blank'>
-                    <select name='opciones' id='opciones' class='form-select form-select-sm' onchange='prepararEnvioGeneradorCSV()' style='width: min-content;'>
+                    <select name='opciones' id='opciones' class='form-select form-select-sm' style='width: min-content;'>
                         <option value='' id='opcionPredeterminada' disabled selected hidden>Opciones</option>
-                        <option value='generateCSV'>Exportar tabla (.csv)</option>
+                        <option value='generateCSV' id='generateCSV' onclick='prepararEnvioGeneradorCSV()'>Exportar tabla (.csv)</option>
                     </select>
                 </form>
                 <form action='' method='get'>
@@ -80,7 +80,7 @@ class View {
                 <h3>Acciones</h3>
                 <div>
                     <button onclick='annadirFila()'>Añadir fila</button>
-                    <button>Eliminar fila</button>
+                    <button onclick='eliminarFila()'>Eliminar fila</button>
                     <button onclick='guardarTabla()'>Guardar tabla (BBDD)</button>
                 </div>
             </div>";

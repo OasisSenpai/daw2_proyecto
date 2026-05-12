@@ -139,5 +139,9 @@ body {
 .parent .div4 #tablaDatos ontal:last {
   border-top-right-radius: 20px;
 }
+.parent .div4 #tablaDatos tr.fila-seleccionada {
+  background-color: #d1e7dd !important;
+  color: #0f5132;
+}
 
 /*# sourceMappingURL=styles.css.map */

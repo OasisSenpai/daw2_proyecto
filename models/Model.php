@@ -13,7 +13,7 @@ class Model {
 
 
     public static function mostrarTabla(string $nombre = "cursos"): string {
-        include_once "bbdd.php";
+        require __DIR__ . "/bbdd.php";
         $txt = "";
         
         [$tabla, $n_columnas] = Model::obtenerTabla($conexion, $nombre);
@@ -23,7 +23,7 @@ class Model {
         mysqli_close($conexion);
 
         foreach ($tabla as $linea) {
-            $txt .= "\t<tr>\n";
+            $txt .= "\t<tr onclick='seleccionarFila(this, event)'>\n";
             foreach ($linea as $columna) {
                 $txt .= "\t<td contenteditable='true'>$columna</td>\n";
             }
@@ -62,7 +62,7 @@ class Model {
 
     
     public static function obtenerDatosParaCSV(string $nombreTabla): array {
-        include_once "models/bbdd.php";
+        require __DIR__ . "/bbdd.php";
 
         if (empty($nombreTabla)) exit();
 
@@ -77,8 +77,41 @@ class Model {
     }
 
 
-    public static function guardarTabla(string $nombreTabla, array $datos): array {  // TODO está sin probar
-        include_once "bbdd.php";
+    // public static function guardarTabla(string $nombreTabla, array $datos): array {
+    //     include_once "bbdd.php";
+        
+    //     $columnas = Model::obtenerEncabezadoTabla($conexion, $nombreTabla);
+    //     $nombresColumnas = array_map(function($col) { return $col[0]; }, $columnas);
+        
+    //     foreach (array_slice($datos, 1) as $fila) {
+    //         // Usar la primera columna como identificador (ID)
+    //         $id = $fila[0];
+    //         $sets = [];
+            
+    //         foreach ($nombresColumnas as $i => $col) {
+    //             if (isset($fila[$i])) {
+    //                 $valor = mysqli_real_escape_string($conexion, $fila[$i]);
+    //                 $sets[] = "$col = '$valor'";
+    //             }
+    //         }
+            
+    //         if (!empty($sets)) {
+    //             $query = "UPDATE $nombreTabla SET " . implode(", ", $sets) . " WHERE " . $nombresColumnas[0] . " = '$id'";
+    //             $resultado = mysqli_query($conexion, $query);
+                
+    //             if (!$resultado) {
+    //                 throw new Exception("Error al guardar fila: " . mysqli_error($conexion));
+    //             }
+    //         }
+    //     }
+        
+    //     mysqli_close($conexion);
+    //     return ["mensaje" => "Tabla \"$nombreTabla\" guardada correctamente"];
+    // }
+
+
+    public static function guardarTabla(string $nombreTabla, array $datos): array {
+        require __DIR__ . "/bbdd.php";
         
         $nombreTabla = strtolower($nombreTabla);
         $columnas = Model::obtenerEncabezadoTabla($conexion, $nombreTabla);

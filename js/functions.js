@@ -29,16 +29,35 @@ function contarCeldasTabla() {
 
 
 function prepararEnvioGeneradorCSV() {
-    const filtro = document.getElementById("buscador").value;
-    const formulario = document.getElementById("formOptions");
-    // const input = document.getElementById("filtro");
-    // input.value = filtro;
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "filtro";
-    input.value = filtro;
-    formulario.appendChild(input);
-    document.getElementById("opcionPredeterminada").selected = true;  //FIXME
+    const formulario = document.createElement("form");
+    const generateCSV = document.createElement("input");
+    const tabla = document.createElement("input");
+    const filtro = document.createElement("input");
+
+    formulario.target = "_blank";
+
+    generateCSV.type = "hidden";
+    generateCSV.name = "generateCSV";
+    generateCSV.value = "generateCSV";
+
+    tabla.type = "hidden";
+    tabla.name = "tabla";
+    const urlParams = new URLSearchParams(window.location.search);
+    tabla.value = urlParams.get('tabla');  //document.getElementById("tabla").value;
+
+    filtro.type = "hidden";
+    filtro.name = "filtro";
+    filtro.value = document.getElementById("buscador").value;
+
+    formulario.appendChild(generateCSV);
+    formulario.appendChild(tabla);
+    formulario.appendChild(filtro);
+
+    document.body.appendChild(formulario);
+
+    document.getElementById("generateCSV").selected = false;
+    document.getElementById("opcionPredeterminada").selected = true;
+
     formulario.submit();
 }
 
@@ -65,4 +84,30 @@ async function guardarTabla() {
 
     const resultado = await response.json();
     alert(resultado.mensaje);
+}
+
+
+function seleccionarFila(fila, event) {
+    // const filaSeleccionada = document.querySelector(".fila-seleccionada");
+    const filasSeleccionadas = document.querySelectorAll(".fila-seleccionada");
+
+    // if (filaSeleccionada && filaSeleccionada !== fila && !event.ctrlKey) {
+    if (!event.ctrlKey) {
+        // filaSeleccionada.classList.remove("fila-seleccionada");
+        filasSeleccionadas.forEach(element => {
+            element.classList.remove("fila-seleccionada");
+        });
+    }
+
+    fila.classList.toggle("fila-seleccionada");
+}
+
+
+function eliminarFila() {
+    const filasSeleccionadas = document.querySelectorAll(".fila-seleccionada");
+
+    filasSeleccionadas.forEach(fila => {
+        console.log(fila);
+        fila.remove();
+    });
 }

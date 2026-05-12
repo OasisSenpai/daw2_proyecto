@@ -13,14 +13,19 @@ class Controller {
         return $view;
     }
 
-    public function generateCSV(string $table): void {
-        $filtro = $_GET['filtro'] ?? "";
+    public function generateCSV(string $table, string $filtro): void {
+        // $filtro = $_GET['filtro'] ?? "";
         // echo "Filtro: " . $filtro;
         [$tabla, $columnas] = Model::obtenerDatosParaCSV($table);
         // print_r($tabla);
 
+        // $tablaFiltrada = array_filter($tabla, function($fila) use ($filtro) {
+        //     return isset($fila[1]) && mb_stripos($fila[1], $filtro);
+        //     // if (empty($filtro)) return true;
+        //     // return isset($fila[1]) && mb_stripos($fila[1], $filtro) !== false;
+        // });
         $tablaFiltrada = array_filter($tabla, function($fila) use ($filtro) {
-            return isset($fila[1]) && mb_stripos($fila[1], $filtro);
+            return isset($fila[1]) && str_contains(mb_strtolower($fila[1]), mb_strtolower($filtro));
         });
         // print_r($tablaFiltrada);
 

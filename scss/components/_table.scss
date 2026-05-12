@@ -48,6 +48,11 @@
             } ontal:last {
                 border-top-right-radius: 20px;
             }
+
+            tr.fila-seleccionada {
+                background-color: #d1e7dd !important;
+                color: #0f5132;
+            }
         }
     }
 }
