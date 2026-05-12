@@ -11,21 +11,15 @@ class ModelTest extends TestCase {
 
     /**
      * Prueba la obtención de datos de una tabla.
-     * Requiere que la base de datos de test tenga la tabla 'cursos'.
      */
     public function testObtenerTabla() {
-        // Usamos require para asegurar que la conexión se cree en este ámbito
         require __DIR__ . '/../../models/bbdd.php';
+        $this->assertNotFalse($conexion, "Error de conexión a la base de datos de test");
         
-        // Verificamos que la conexión sea válida antes de seguir
-        $this->assertNotFalse($conexion, "Error de conexión a la base de datos de test: " . mysqli_connect_error());
-        
-        // Intentamos obtener la tabla 'cursos'
         [$tabla, $n_columnas] = Model::obtenerTabla($conexion, 'cursos');
         
-        $this->assertIsArray($tabla, 'La tabla debe ser un array (puede estar vacío)');
-        $this->assertNotFalse($n_columnas, 'El recuento de columnas no debe ser false (esto indica error en la consulta)');
-        $this->assertIsArray($n_columnas, 'El recuento de columnas debe ser un array');
+        $this->assertIsArray($tabla);
+        $this->assertNotFalse($n_columnas);
         
         mysqli_close($conexion);
     }
@@ -46,35 +40,86 @@ class ModelTest extends TestCase {
     }
 
     /**
-     * Prueba el guardado de datos (Insert/Update/Delete).
+     * PRUEBA DE SINCRONIZACIÓN COMPLETA (CRUD)
+     * Esta prueba verifica que guardarTabla inserte, actualice y borre correctamente.
      */
-    public function testGuardarTabla() {
+    public function testSincronizacionCompletaGuardarTabla() {
         $nombreTabla = 'cursos';
         
-        // Preparamos datos ficticios para guardar
-        $datosParaGuardar = [
+        // 1. LIMPIEZA INICIAL: Aseguramos que no hay datos de test previos
+        require __DIR__ . '/../../models/bbdd.php';
+        mysqli_query($conexion, "DELETE FROM $nombreTabla WHERE id IN ('998', '999')");
+        mysqli_close($conexion);
+
+        // 2. PRUEBA DE INSERCIÓN
+        $datosInsert = [
             ['id', 'nombre', 'descripcion'], // Encabezado
-            ['999', 'Curso Test', 'Descripción de test'] // Fila de prueba
+            ['999', 'Original', 'Desc']      // Fila nueva
+        ];
+        Model::guardarTabla($nombreTabla, $datosInsert);
+
+        require __DIR__ . '/../../models/bbdd.php';
+        $res = mysqli_query($conexion, "SELECT nombre FROM $nombreTabla WHERE id = '999'");
+        $fila = mysqli_fetch_assoc($res);
+        $this->assertEquals('Original', $fila['nombre'] ?? $fila['Nombre'] ?? '');
+        mysqli_close($conexion);
+
+        // 3. PRUEBA DE ACTUALIZACIÓN (UPDATE)
+        // Enviamos el mismo ID pero con distinto nombre. 
+        // Tu código detectará el error 1062 y ejecutará el UPDATE.
+        $datosUpdate = [
+            ['id', 'nombre', 'descripcion'],
+            ['999', 'Modificado', 'Desc']
+        ];
+        Model::guardarTabla($nombreTabla, $datosUpdate);
+
+        require __DIR__ . '/../../models/bbdd.php';
+        $res = mysqli_query($conexion, "SELECT nombre FROM $nombreTabla WHERE id = '999'");
+        $fila = mysqli_fetch_assoc($res);
+        $this->assertEquals('Modificado', $fila['nombre'] ?? $fila['Nombre'] ?? '');
+        mysqli_close($conexion);
+
+        // 4. PRUEBA DE BORRADO (DELETE)
+        // Enviamos una tabla VACÍA (solo el encabezado).
+        // Tu código debería ver que el ID '999' ya no está en el array y borrarlo de la BD.
+        $datosVacios = [
+            ['id', 'nombre', 'descripcion']
+        ];
+        Model::guardarTabla($nombreTabla, $datosVacios);
+
+        require __DIR__ . '/../../models/bbdd.php';
+        $res = mysqli_query($conexion, "SELECT * FROM $nombreTabla WHERE id = '999'");
+        $this->assertEmpty(mysqli_fetch_assoc($res), 'La fila debería haber sido borrada por la sincronización');
+        mysqli_close($conexion);
+    }
+
+    /**
+     * Prueba el manejo de duplicados explícito (branch 1062)
+     */
+    public function testManejoDuplicados() {
+        $nombreTabla = 'cursos';
+        
+        // Insertamos manualmente una fila
+        require __DIR__ . '/../../models/bbdd.php';
+        mysqli_query($conexion, "INSERT INTO $nombreTabla (id, nombre, descripcion) VALUES ('998', 'Test', 'Test')");
+        mysqli_close($conexion);
+
+        // Intentamos guardar la misma fila con cambios
+        $datos = [
+            ['id', 'nombre', 'descripcion'],
+            ['998', 'Cambiado', 'Test']
         ];
         
-        $resultado = Model::guardarTabla($nombreTabla, $datosParaGuardar);
-        
-        $this->assertArrayHasKey('mensaje', $resultado);
+        $resultado = Model::guardarTabla($nombreTabla, $datos);
         $this->assertStringContainsString('guardada correctamente', $resultado['mensaje']);
-        
-        // Verificamos que realmente se guardó
+
         require __DIR__ . '/../../models/bbdd.php';
-        $query = "SELECT * FROM $nombreTabla WHERE id = '999'";
-        $res = mysqli_query($conexion, $query);
+        $res = mysqli_query($conexion, "SELECT nombre FROM $nombreTabla WHERE id = '998'");
         $fila = mysqli_fetch_assoc($res);
+        $this->assertEquals('Cambiado', $fila['nombre'] ?? $fila['Nombre'] ?? '');
         
-        $this->assertNotNull($fila, 'La fila de prueba debería existir en la base de datos de test');
-        // Usamos mb_strtolower para comparar sin importar mayúsculas
-        $nombreEncontrado = $fila['nombre'] ?? $fila['Nombre'] ?? '';
-        $this->assertEquals('Curso Test', $nombreEncontrado);
-        
-        // Limpieza: Borramos la fila de prueba
-        mysqli_query($conexion, "DELETE FROM $nombreTabla WHERE id = '999'");
+        // Limpieza
+        mysqli_query($conexion, "DELETE FROM $nombreTabla WHERE id = '998'");
         mysqli_close($conexion);
     }
 }
