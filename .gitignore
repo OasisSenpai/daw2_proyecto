@@ -1,2 +1,7 @@
+.vscode/
+
 css.old/
 temp.css
+/vendor/
+.phpunit.cache/
+tests/php/coverage-report/

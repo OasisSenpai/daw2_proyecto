@@ -1,0 +1,12 @@
+{
+    "name": "Proyecto_final-mvc",
+    "type": "project",
+    "authors": [
+        {
+            "name": "David Ramos y Rubén Casañ"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
+}

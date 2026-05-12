@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>QUnit Tests - Proyecto Final MVC</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.20.0.css">
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture">
+        <!-- Aquí colocaremos el HTML necesario para que las funciones de JS tengan donde trabajar -->
+        <div id="tableName">Cursos</div>
+        <input type="text" id="buscador" value="">
+        <table id="tablaDatos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>PHP Básico</td>
+                    <td>Introducción a PHP</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>JavaScript Avanzado</td>
+                    <td>JS Moderno</td>
+                </tr>
+            </tbody>
+        </table>
+        <select id="generateCSV"></select>
+        <select id="opcionPredeterminada"></select>
+    </div>
+
+    <!-- Cargar QUnit -->
+    <script src="https://code.jquery.com/qunit/qunit-2.20.0.js"></script>
+
+    <!-- Cargar archivos del proyecto -->
+    <script src="../../js/buscador.js"></script>
+    <script src="../../js/functions.js"></script>
+
+    <!-- Cargar archivos de pruebas -->
+    <script src="test_buscador.js"></script>
+    <script src="test_functions.js"></script>
+</body>
+</html>
