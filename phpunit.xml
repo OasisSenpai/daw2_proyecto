@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache">
+    
+    <!-- Definición de dónde están las pruebas -->
+    <testsuites>
+        <testsuite name="Project Test Suite">
+            <directory>tests/php</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <env name="PHPUNIT_TESTING" value="true"/>
+        <env name="XDEBUG_MODE" value="coverage"/>
+    </php>
+
+    <!-- Configuración del código fuente que queremos auditar -->
+    <source>
+        <include>
+            <directory>models</directory>
+            <directory>controllers</directory>
+            <directory>views</directory>
+        </include>
+        <exclude>
+            <file>models/bbdd.php</file>
+        </exclude>
+    </source>
+
+    <!-- Configuración del reporte de cobertura -->
+    <coverage>
+        <report>
+            <!-- Generará una web interactiva en esta carpeta -->
+            <html outputDirectory="tests/php/coverage-report"/>
+            <!-- Mostrará un resumen por consola al terminar -->
+            <text outputFile="php://stdout" showOnlySummary="true"/>
+        </report>
+    </coverage>
+</phpunit>
