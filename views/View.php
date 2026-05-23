@@ -35,12 +35,10 @@ class View {
     <body>
         <header>
             <nav class='mb-3 d-flex justify-content-start gap-3'>
-                <form action='' method='get' id='formOptions' target='_blank'>
-                    <select name='opciones' id='opciones' class='form-select form-select-sm' style='width: min-content;'>
-                        <option value='' id='opcionPredeterminada' disabled selected hidden>Opciones</option>
-                        <option value='generateCSV' id='generateCSV' onclick='prepararEnvioGeneradorCSV()'>Exportar tabla (.csv)</option>
-                    </select>
-                </form>
+                <select name='opciones' id='opciones' class='form-select form-select-sm' style='width: min-content;'>
+                    <option value='' id='opcionPredeterminada' disabled selected hidden>Opciones</option>
+                    <option value='generateCSV' id='generateCSV'>Exportar tabla (.csv)</option>
+                </select>
                 <form action='' method='get'>
                     <select name='tabla' id='tabla' class='form-select form-select-sm' onchange='form.submit()' style='width: min-content;'>
                         <option value='' disabled selected hidden>Tablas</option>
@@ -62,6 +60,16 @@ class View {
     public function footer(): void {
         $this->phtml .= "
     </body>
+    <script>
+        const selectorOpciones = document.getElementById(\"opciones\");
+        if (selectorOpciones) {
+            selectorOpciones.addEventListener(\"change\", function() {
+                if (this.value === \"generateCSV\") {
+                    prepararEnvioGeneradorCSV();
+                }
+            });
+        }
+    </script>
 </html>";
     }
 
