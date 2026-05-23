@@ -37,7 +37,7 @@ class Model {
 
 
     public static function obtenerEncabezadoTabla($conexion, string $nombre): array {
-        $query = "select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$nombre'";
+        $query = "select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '$nombre' AND TABLE_SCHEMA = 'daw_proyecto'";
 
         $resultado = mysqli_query($conexion, $query);
         $columnas = mysqli_fetch_all($resultado);
